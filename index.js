@@ -25,6 +25,7 @@ function divide(a, b) {
 }
 
 function operate(state) {
+  console.table(state);
   const { a, b, operand } = state;
   switch (operand) {
     case "+":
@@ -48,7 +49,6 @@ function parseNumInput(e) {
     dArr.push(e.target.dataset.value);
   if (dArr.length > 1 && dArr[0] === "0" && dArr[1] !== ".") {
     dArr.splice(0, 1);
-    console.log("dArr", dArr);
   }
   display.dataset.value = dArr.join("");
   display.innerText = display.dataset.value;
@@ -62,12 +62,12 @@ function parseOperandInput(e) {
     state.b = parseFloat(display.dataset.value);
   }
   display.dataset.value = "";
-  console.table(state);
+
   if (state.ready()) {
-    display.dataset.value = operate(state);
-    display.innerText = display.dataset.value;
+    display.innerText = operate(state);
     state.reset();
     state.a = parseFloat(display.dataset.value);
+    display.dataset.value = 0;
   }
   if (operand !== "=") {
     state.operand = operand;
@@ -97,9 +97,7 @@ let state = {
 
 const numList = document.getElementsByClassName("num");
 const display = document.getElementById("display");
-console.log("display", display);
 
-console.log("numList", numList);
 for (let i = 0; i < numList.length; i++) {
   const element = numList[i];
   element.setAttribute("data-value", element.innerHTML);
