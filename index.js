@@ -9,6 +9,7 @@ let state = {
   total: 0,
   b: null,
   operand: null,
+
   ready() {
     return this.total !== null && this.b !== null && this.operand !== null;
   },
@@ -36,6 +37,16 @@ function divide(a, b) {
     return nonSense[Math.floor(Math.random() * nonSense.length)];
   }
   return parseFloat(state.total) / parseFloat(state.b);
+}
+
+function toggleSign() {
+  display.dataset.value = parseFloat(display.dataset.value * -1);
+  display.innerText = display.dataset.value;
+  if (state.operand === null) {
+    state.total = parseFloat(display.dataset.value);
+  } else {
+    state.b = parseFloat(display.dataset.value);
+  }
 }
 
 function operate(state) {
@@ -66,7 +77,7 @@ function parseNumInput(e) {
   if (dArr.length > 1 && dArr[0] === "0" && dArr[1] !== ".") {
     dArr.splice(0, 1);
   }
-  display.dataset.value = dArr.join("");
+  display.dataset.value = parseFloat(dArr.join(""));
   display.innerText = display.dataset.value;
   if (state.operand !== null) {
     state.b = display.dataset.value;
@@ -84,6 +95,9 @@ function parseOperandInput(e) {
     display.innerText = operate(state);
     state.reset();
     state.total = parseFloat(display.innerText);
+    if (state.total < 0) {
+      state.totalSign = -1;
+    }
     display.dataset.value = 0;
   }
   if (operand !== "=") {
@@ -119,3 +133,6 @@ for (let i = 0; i < operands.length; i++) {
 
 const clearBtn = document.getElementById("clear");
 clearBtn.addEventListener("click", clear);
+
+const toggleBtn = document.getElementById("toggle");
+toggleBtn.addEventListener("click", toggleSign);
