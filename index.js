@@ -1,3 +1,10 @@
+const nonSense = [
+  "dog butt",
+  "dehydration water",
+  "asdflkjfghas;dlkjf",
+  "Instruction unclear, deleting root",
+];
+
 function add(a, b) {
   return parseFloat(a) + parseFloat(b);
 }
@@ -11,6 +18,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+  if (parseInt(b) === 0) {
+    return nonSense[Math.floor(Math.random() * nonSense.length)];
+  }
   return parseFloat(a) / parseFloat(b);
 }
 
