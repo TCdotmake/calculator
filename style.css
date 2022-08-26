@@ -1,0 +1,20 @@
+:root {
+  --btn-width: 60px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+#allBtn {
+  display: flex;
+}
+#operands {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  width: var(--btn-width);
+  aspect-ratio: 1/1;
+}
