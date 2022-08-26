@@ -5,6 +5,8 @@ const nonSense = [
   "Instruction unclear, deleting root",
 ];
 
+const display = document.getElementById("display");
+
 let state = {
   total: 0,
   b: null,
@@ -23,32 +25,18 @@ let state = {
 function add() {
   return parseFloat(state.total) + parseFloat(state.b);
 }
-
 function subtract(a, b) {
   return parseFloat(state.total) - parseFloat(state.b);
 }
-
 function multiply(a, b) {
   return parseFloat(state.total) * parseFloat(state.b);
 }
-
 function divide(a, b) {
   if (parseInt(b) === 0) {
     return nonSense[Math.floor(Math.random() * nonSense.length)];
   }
   return parseFloat(state.total) / parseFloat(state.b);
 }
-
-function toggleSign() {
-  display.dataset.value = parseFloat(display.dataset.value * -1);
-  display.innerText = display.dataset.value;
-  if (state.operand === null) {
-    state.total = parseFloat(display.dataset.value);
-  } else {
-    state.b = parseFloat(display.dataset.value);
-  }
-}
-
 function operate(state) {
   if (state.total === null) {
     return;
@@ -67,6 +55,16 @@ function operate(state) {
     case "/":
       return divide();
       break;
+  }
+}
+
+function toggleSign() {
+  display.dataset.value = parseFloat(display.dataset.value * -1);
+  display.innerText = display.dataset.value;
+  if (state.operand === null) {
+    state.total = parseFloat(display.dataset.value);
+  } else {
+    state.b = parseFloat(display.dataset.value);
   }
 }
 
@@ -139,9 +137,8 @@ function deleteChar() {
   }
 }
 
+//numpad eventListeners
 const numList = document.getElementsByClassName("num");
-const display = document.getElementById("display");
-
 for (let i = 0; i < numList.length; i++) {
   const element = numList[i];
   element.setAttribute("data-value", element.innerHTML);
@@ -150,6 +147,7 @@ for (let i = 0; i < numList.length; i++) {
   });
 }
 
+//operands eventListeners
 const operands = document.getElementsByClassName("operand");
 for (let i = 0; i < operands.length; i++) {
   const element = operands[i];
@@ -158,6 +156,8 @@ for (let i = 0; i < operands.length; i++) {
     parseOperandInput(e);
   });
 }
+
+//special function eventListeners
 
 const clearBtn = document.getElementById("clear");
 clearBtn.addEventListener("click", clear);
