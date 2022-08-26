@@ -111,6 +111,28 @@ function clear() {
   state.reset();
 }
 
+function deleteChar() {
+  let value = parseFloat(display.dataset.value);
+  const sign = value < 0 ? -1 : 1;
+  const dArr = value.toString().split("");
+  dArr.pop();
+  if (
+    dArr.length === 0 ||
+    (dArr.length === 1 && (dArr[0] === "-" || dArr[0] === "."))
+  ) {
+    value = 0;
+  } else {
+    value = parseFloat(dArr.join(""));
+  }
+  display.dataset.value = value;
+  display.innerText = value;
+  if (state.operand === null) {
+    state.total = value;
+  } else {
+    state.b = value;
+  }
+}
+
 const numList = document.getElementsByClassName("num");
 const display = document.getElementById("display");
 
@@ -136,3 +158,6 @@ clearBtn.addEventListener("click", clear);
 
 const toggleBtn = document.getElementById("toggle");
 toggleBtn.addEventListener("click", toggleSign);
+
+const deleteDigit = document.getElementById("del");
+deleteDigit.addEventListener("click", deleteChar);
