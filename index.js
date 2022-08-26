@@ -57,11 +57,17 @@ function parseOperandInput(e) {
     display.dataset.value = operate(state);
     display.innerText = display.dataset.value;
     state.reset();
-    state.a = display.dataset.value;
+    state.a = parseFloat(display.dataset.value);
   }
   if (operand !== "=") {
     state.operand = operand;
   }
+}
+
+function clear() {
+  display.dataset.value = 0;
+  display.innerText = display.dataset.value;
+  state.reset();
 }
 
 let aVal = 0;
@@ -100,3 +106,6 @@ for (let i = 0; i < operands.length; i++) {
     parseOperandInput(e);
   });
 }
+
+const clearBtn = document.getElementById("clear");
+clearBtn.addEventListener("click", clear);
