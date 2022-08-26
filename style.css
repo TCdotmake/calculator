@@ -1,6 +1,6 @@
 :root {
   --btn-side: 80px;
-  --display-padding: 30px;
+  --display-padding: 70px;
   font-family: "Jura", sans-serif;
   font-weight: 300;
   font-size: 16px;
@@ -41,7 +41,7 @@ body {
 #display {
   width: calc(100% - var(--display-padding) * 2);
   height: var(--btn-side);
-  padding: var(--display-padding);
+  padding: calc(var(--display-padding) / 4) var(--display-padding);
   background: rgb(87, 87, 87);
   line-height: var(--btn-side);
   color: white;

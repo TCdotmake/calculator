@@ -13,13 +13,13 @@
   </head>
   <body>
     <div id="calcWrapper">
-      <div id="display">123456789+-</div>
+      <div id="display" data-value="0">0</div>
       <div id="allBtn">
         <div class="numpad">
           <div class="numRow">
-            <button class="num btn" id="clear">clear</button
-            ><button class="num btn">+/-</button
-            ><button class="num btn">X</button>
+            <button class="operand btn" id="clear">clear</button
+            ><button class="operand btn">+/-</button
+            ><button class="operand btn">X</button>
           </div>
           <div class="numRow">
             <button class="num btn">7</button><button class="num btn">8</button
@@ -35,7 +35,7 @@
           </div>
           <div class="numRow">
             <button class="num btn">0</button><button class="num btn">.</button
-            ><button class="num btn">del</button>
+            ><button class="operand btn">del</button>
           </div>
         </div>
         <div id="operands">
