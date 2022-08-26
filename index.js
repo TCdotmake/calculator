@@ -72,17 +72,23 @@ function operate(state) {
 
 function parseNumInput(e) {
   const dArr = display.dataset.value.split("");
-  if (!dArr.includes(".") || e.target.dataset.value !== ".")
+  if (e.target.dataset.value === ".") {
+    if (!dArr.includes(".")) {
+      dArr.push(e.target.dataset.value);
+    }
+  } else {
     dArr.push(e.target.dataset.value);
-  if (dArr.length > 1 && dArr[0] === "0" && dArr[1] !== ".") {
-    dArr.splice(0, 1);
   }
-  display.dataset.value = parseFloat(dArr.join(""));
+
+  if (dArr.length > 1 && dArr[0] === "0" && dArr[1] !== ".") {
+    dArr.shift();
+  }
+  display.dataset.value = dArr.join("");
   display.innerText = display.dataset.value;
   if (state.operand !== null) {
-    state.b = display.dataset.value;
+    state.b = parseFloat(display.dataset.value);
   } else {
-    state.total = display.dataset.value;
+    state.total = parseFloat(display.dataset.value);
   }
 }
 
