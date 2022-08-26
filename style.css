@@ -1,10 +1,19 @@
 :root {
-  --btn-width: 60px;
+  --btn-side: 80px;
+  --display-padding: 30px;
+  font-family: "Jura", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
 }
 
 body {
   margin: 0;
   padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #allBtn {
   display: flex;
@@ -15,6 +24,28 @@ body {
 }
 
 .btn {
-  width: var(--btn-width);
-  aspect-ratio: 1/1;
+  height: var(--btn-side);
+  width: calc(2 * var(--btn-side));
+  font-size: 1.2rem;
+}
+
+#clear {
+  background: rgb(210, 45, 45);
+}
+
+#equal {
+  height: calc(var(--btn-side) * 2);
+  width: calc(2 * var(--btn-side));
+}
+
+#display {
+  width: calc(100% - var(--display-padding) * 2);
+  height: var(--btn-side);
+  padding: var(--display-padding);
+  background: rgb(87, 87, 87);
+  line-height: var(--btn-side);
+  color: white;
+  text-align: end;
+  font-weight: 700;
+  font-size: 2rem;
 }
