@@ -5,40 +5,56 @@ const nonSense = [
   "Instruction unclear, deleting root",
 ];
 
-function add(a, b) {
-  return parseFloat(a) + parseFloat(b);
+let state = {
+  total: 0,
+  b: null,
+  operand: null,
+  ready() {
+    return this.total !== null && this.b !== null && this.operand !== null;
+  },
+  reset() {
+    this.total = null;
+    this.b = null;
+    this.operand = null;
+  },
+};
+
+function add() {
+  return parseFloat(state.total) + parseFloat(state.b);
 }
 
 function subtract(a, b) {
-  return parseFloat(a) - parseFloat(b);
+  return parseFloat(state.total) - parseFloat(state.b);
 }
 
 function multiply(a, b) {
-  return parseFloat(a) * parseFloat(b);
+  return parseFloat(state.total) * parseFloat(state.b);
 }
 
 function divide(a, b) {
   if (parseInt(b) === 0) {
     return nonSense[Math.floor(Math.random() * nonSense.length)];
   }
-  return parseFloat(a) / parseFloat(b);
+  return parseFloat(state.total) / parseFloat(state.b);
 }
 
 function operate(state) {
+  if (state.total === null) {
+    return;
+  }
   console.table(state);
-  const { a, b, operand } = state;
-  switch (operand) {
+  switch (state.operand) {
     case "+":
-      return add(a, b);
+      return add();
       break;
     case "-":
-      return subtract(a, b);
+      return subtract();
       break;
     case "*":
-      return multiply(a, b);
+      return multiply();
       break;
     case "/":
-      return divide(a, b);
+      return divide();
       break;
   }
 }
@@ -52,21 +68,22 @@ function parseNumInput(e) {
   }
   display.dataset.value = dArr.join("");
   display.innerText = display.dataset.value;
+  if (state.operand !== null) {
+    state.b = display.dataset.value;
+  } else {
+    state.total = display.dataset.value;
+  }
 }
 
 function parseOperandInput(e) {
   const operand = e.target.dataset.value;
-  if (state.a === null) {
-    state.a = parseFloat(display.dataset.value);
-  } else {
-    state.b = parseFloat(display.dataset.value);
-  }
+
   display.dataset.value = "";
 
   if (state.ready()) {
     display.innerText = operate(state);
     state.reset();
-    state.a = parseFloat(display.dataset.value);
+    state.total = parseFloat(display.innerText);
     display.dataset.value = 0;
   }
   if (operand !== "=") {
@@ -79,21 +96,6 @@ function clear() {
   display.innerText = display.dataset.value;
   state.reset();
 }
-
-let aVal = 0;
-let state = {
-  a: null,
-  b: null,
-  operand: null,
-  ready() {
-    return this.a !== null && this.b !== null && this.operand !== null;
-  },
-  reset() {
-    this.a = null;
-    this.b = null;
-    this.operand = null;
-  },
-};
 
 const numList = document.getElementsByClassName("num");
 const display = document.getElementById("display");
