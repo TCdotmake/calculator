@@ -61,11 +61,7 @@ function operate(state) {
 function toggleSign() {
   display.dataset.value = parseFloat(display.dataset.value * -1);
   display.innerText = display.dataset.value;
-  if (state.operand === null) {
-    state.total = parseFloat(display.dataset.value);
-  } else {
-    state.b = parseFloat(display.dataset.value);
-  }
+  updateDisplay(parseFloat(display.dataset.value));
 }
 
 function parseNumInput(e) {
@@ -83,11 +79,7 @@ function parseNumInput(e) {
   }
   display.dataset.value = dArr.join("");
   display.innerText = display.dataset.value;
-  if (state.operand !== null) {
-    state.b = parseFloat(display.dataset.value);
-  } else {
-    state.total = parseFloat(display.dataset.value);
-  }
+  updateDisplay(display.dataset.value);
 }
 
 function parseOperandInput(e) {
@@ -130,10 +122,14 @@ function deleteChar() {
   }
   display.dataset.value = value;
   display.innerText = value;
+  updateDisplay(value);
+}
+
+function updateDisplay(num) {
   if (state.operand === null) {
-    state.total = value;
+    state.total = num;
   } else {
-    state.b = value;
+    state.b = num;
   }
 }
 
