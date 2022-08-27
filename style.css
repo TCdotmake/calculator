@@ -1,9 +1,11 @@
 :root {
-  --btn-side: 80px;
+  --btn-side: 70px;
+
   --display-padding: 70px;
+  --gap: 5px;
   font-family: "Jura", sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 body {
@@ -21,12 +23,20 @@ body {
 #operands {
   display: flex;
   flex-direction: column;
+  gap: var(--gap);
 }
 
 .btn {
   height: var(--btn-side);
-  width: calc(2 * var(--btn-side));
+  width: calc(1.6 * var(--btn-side));
   font-size: 1.2rem;
+  border-radius: 5%;
+  transform: scale(0.9);
+}
+
+.btn:hover {
+  transform: scale(1);
+  font-size: 1.5rem;
 }
 
 #clear {
@@ -34,18 +44,56 @@ body {
 }
 
 #equal {
-  height: calc(var(--btn-side) * 2);
-  width: calc(2 * var(--btn-side));
+  height: calc(var(--gap) * 1.5 + var(--btn-side) * 2);
+  width: calc(1.6 * var(--btn-side));
+}
+
+.numpad {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.numRow {
+  height: var(--btn-side);
+}
+
+#displayWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: rgb(87, 87, 87);
+  color: white;
+  border-radius: 5px;
+  text-align: end;
+  padding: calc(var(--btn-side) / 2) 0 calc(var(--btn-side) / 4) 0;
+}
+
+#log {
+  width: 80%;
+  height: calc(var(--btn-side) * 0.6);
+  font-size: 1 rem;
+  margin-bottom: calc(var(--btn-side) * 0.3 * -1);
 }
 
 #display {
-  width: calc(100% - var(--display-padding) * 2);
-  height: var(--btn-side);
-  padding: calc(var(--display-padding) / 4) var(--display-padding);
-  background: rgb(87, 87, 87);
+  width: 80%;
+  height: calc(var(--btn-side) * 1);
+  /* padding: calc(var(--display-padding) / 4) var(--display-padding); */
+
   line-height: var(--btn-side);
-  color: white;
-  text-align: end;
+
   font-weight: 700;
   font-size: 2rem;
 }
+
+#calcWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) * 3);
+}
+
+/* * {
+  border: 1px solid red;
+} */
