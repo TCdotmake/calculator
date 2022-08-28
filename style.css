@@ -3,6 +3,10 @@
 
   --display-padding: 70px;
   --gap: 5px;
+  --display-bg: rgb(87, 87, 87);
+  --display-bg2: rgb(191, 124, 213);
+  --btn-bg: rgba(233, 202, 255, 0.475);
+  --operand-bg: rgba(225, 182, 255, 0.3);
   font-family: "Jura", sans-serif;
   font-weight: 300;
   font-size: 20px;
@@ -26,22 +30,32 @@ body {
   gap: var(--gap);
 }
 
+.operand.btn,
+#toggle,
+#clear {
+  background-color: var(--operand-bg);
+  color: white;
+}
+
 .btn {
   height: var(--btn-side);
   width: calc(1.6 * var(--btn-side));
   font-size: 1.2rem;
-  border-radius: 5%;
+  border-radius: 15px;
   transform: scale(0.9);
+  appearance: none;
+  background: var(--btn-bg);
+  border: none;
 }
 
 .btn:hover {
-  transform: scale(1);
+  transform: scale(0.95);
   font-size: 1.5rem;
 }
 
-#clear {
-  background: rgb(229, 103, 45);
-}
+/* #clear {
+  background: rgb(252, 205, 255);
+} */
 
 #equal {
   height: calc(var(--gap) * 1.5 + var(--btn-side) * 2);
@@ -63,7 +77,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background: rgb(87, 87, 87);
+
   color: white;
   border-radius: 5px;
   text-align: end;
@@ -75,25 +89,53 @@ body {
   height: calc(var(--btn-side) * 0.6);
   font-size: 1 rem;
   margin-bottom: calc(var(--btn-side) * 0.3 * -1);
+  overflow: hidden;
 }
 
 #display {
   width: 80%;
   height: calc(var(--btn-side) * 1);
-  /* padding: calc(var(--display-padding) / 4) var(--display-padding); */
 
   line-height: var(--btn-side);
 
   font-weight: 700;
   font-size: 2rem;
+  overflow: hidden;
 }
 
 #calcWrapper {
   display: flex;
   flex-direction: column;
   gap: calc(var(--gap) * 3);
+
+  padding: 0 15px 30px 15px;
+  background: linear-gradient(var(--display-bg), var(--display-bg2));
+  border-radius: 15px;
+  position: relative;
+  width: 448px;
 }
 
+#screenDecor {
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  clip-path: polygon(0 0, 100% 0%, 100% 60%, 0 100%);
+  background: linear-gradient(rgb(50, 50, 50), transparent);
+  background: radial-gradient(elipse at top, rgb(50, 50, 50), transparent);
+  z-index: 1;
+  border-radius: 15px;
+}
+
+#allBtn,
+#displayWrapper {
+  z-index: 2;
+}
+
+.btn {
+  color: var(--display-bg);
+}
 /* * {
   border: 1px solid red;
 } */

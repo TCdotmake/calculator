@@ -29,13 +29,13 @@ function subtract(a, b) {
   return parseFloat(state.total) - parseFloat(state.b);
 }
 function multiply(a, b) {
-  return parseFloat(state.total) * parseFloat(state.b);
+  return (parseFloat(state.total) * parseFloat(state.b)).toFixed(4);
 }
 function divide(a, b) {
   if (parseInt(b) === 0) {
     return nonSense[Math.floor(Math.random() * nonSense.length)];
   }
-  return parseFloat(state.total) / parseFloat(state.b);
+  return (parseFloat(state.total) / parseFloat(state.b)).toFixed(4);
 }
 function operate(state) {
   if (state.total === null) {
@@ -61,7 +61,7 @@ function operate(state) {
 function toggleSign() {
   display.dataset.value = parseFloat(display.dataset.value * -1);
   display.innerText = display.dataset.value;
-  updateDisplay(parseFloat(display.dataset.value));
+  updateState(parseFloat(display.dataset.value));
 }
 
 function parseNumInput(e) {
@@ -79,8 +79,10 @@ function parseNumInput(e) {
   }
   display.dataset.value = dArr.join("");
   display.innerText = display.dataset.value;
-  updateDisplay(display.dataset.value);
+  updateState(display.dataset.value);
 }
+
+const operandSpan = document.getElementById("operand");
 
 function parseOperandInput(e) {
   const operand = e.target.dataset.value;
@@ -88,12 +90,12 @@ function parseOperandInput(e) {
   display.dataset.value = "";
 
   if (state.ready()) {
+    updateLog();
     display.innerText = operate(state);
     state.reset();
-    state.total = parseFloat(display.innerText);
-    if (state.total < 0) {
-      state.totalSign = -1;
-    }
+
+    updateState(parseFloat(display.innerText));
+
     display.dataset.value = 0;
   }
   if (operand !== "=") {
@@ -122,10 +124,10 @@ function deleteChar() {
   }
   display.dataset.value = value;
   display.innerText = value;
-  updateDisplay(value);
+  updateState(value);
 }
 
-function updateDisplay(num) {
+function updateState(num) {
   if (state.operand === null) {
     state.total = num;
   } else {
@@ -133,6 +135,14 @@ function updateDisplay(num) {
   }
 }
 
+function updateLog() {
+  total.innerText = state.total;
+  operandSpan.innerText = state.operand;
+  numB.innerText = state.b;
+}
+
+const total = document.getElementById("total");
+const numB = document.getElementById("numB");
 //numpad eventListeners
 const numList = document.getElementsByClassName("num");
 for (let i = 0; i < numList.length; i++) {
