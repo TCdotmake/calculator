@@ -6,6 +6,9 @@ const nonSense = [
 ];
 
 const display = document.getElementById("display");
+const operandSpan = document.getElementById("operand");
+const total = document.getElementById("total");
+const numB = document.getElementById("numB");
 
 let state = {
   total: 0,
@@ -82,8 +85,6 @@ function parseNumInput(e) {
   updateState(display.dataset.value);
 }
 
-const operandSpan = document.getElementById("operand");
-
 function parseOperandInput(e) {
   const operand = e.target.dataset.value;
 
@@ -111,7 +112,6 @@ function clear() {
 
 function deleteChar() {
   let value = parseFloat(display.dataset.value);
-  const sign = value < 0 ? -1 : 1;
   const dArr = value.toString().split("");
   dArr.pop();
   if (
@@ -141,8 +141,6 @@ function updateLog() {
   numB.innerText = state.b;
 }
 
-const total = document.getElementById("total");
-const numB = document.getElementById("numB");
 //numpad eventListeners
 const numList = document.getElementsByClassName("num");
 for (let i = 0; i < numList.length; i++) {
@@ -173,3 +171,70 @@ toggleBtn.addEventListener("click", toggleSign);
 
 const deleteDigit = document.getElementById("del");
 deleteDigit.addEventListener("click", deleteChar);
+
+/*****canvas bg ********/
+const canvas = document.getElementById("canvasBg");
+const c = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", (e) => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+function drawCircle() {
+  c.beginPath();
+  c.fillStyle = "red";
+  c.arc(200, 200, 80, 0, 2 * Math.PI);
+  c.fill();
+}
+
+class Orb {
+  constructor() {
+    this.x = Math.floor(Math.random() * canvas.width);
+    this.y = Math.floor(Math.random() * canvas.height);
+    this.xSp = Math.random() * 6 - 3;
+    this.ySp = Math.random() * 6 - 3;
+    this.color = Math.floor(Math.random() * 360);
+    this.radius = 10 + Math.floor(Math.random() * 200);
+  }
+  drawCircle() {
+    c.beginPath();
+    c.fillStyle = `hsla(${this.color}, 75%, 75%, 0.7)`;
+    c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    c.fill();
+  }
+  update() {
+    if (this.x + this.xSp > canvas.width || this.x + this.xSp < 0) {
+      this.xSp *= -1;
+    }
+    if (this.y + this.ySp > canvas.height || this.y + this.ySp < 0) {
+      this.ySp *= -1;
+    }
+    this.x += this.xSp;
+    this.y += this.ySp;
+    this.drawCircle();
+  }
+}
+
+const orbArr = [];
+for (let i = 0; i < 20; i++) {
+  orbArr.push(new Orb());
+}
+
+function updateArr(orbArr) {
+  for (let orb of orbArr) {
+    orb.update();
+  }
+}
+
+function animate() {
+  c.fillStyle = "rgb(243, 172, 226)";
+  c.fillRect(0, 0, canvas.width, canvas.height);
+  updateArr(orbArr);
+  requestAnimationFrame(animate);
+}
+
+animate();
