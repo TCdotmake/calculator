@@ -202,7 +202,7 @@ class Orb {
   }
   drawCircle() {
     c.beginPath();
-    c.fillStyle = `hsla(${this.color}, 75%, 75%, 0.7)`;
+    c.fillStyle = `hsla(${this.color}, 75%, 75%, 0.5)`;
     c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     c.fill();
   }
@@ -231,7 +231,7 @@ function updateArr(orbArr) {
 }
 
 function animate() {
-  c.fillStyle = "rgb(243, 172, 226)";
+  c.fillStyle = "rgb(201, 190, 235)";
   c.fillRect(0, 0, canvas.width, canvas.height);
   updateArr(orbArr);
   requestAnimationFrame(animate);
